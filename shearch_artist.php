@@ -8,7 +8,8 @@ function get_id_artist($name) { //cette fonction permet de recherche un artiste 
     $api = new SpotifyWebAPI\SpotifyWebAPI();
     $api->setAccessToken($token);
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-
+    echo"Recherche dans spotify ";
+        $name = preg_replace('/\s+/', '+', $name);
         $artist = $api->shearch_artiste($name); //recherche de m'artiste via l'api. La fonction shearch_artiste n'était pas présente dans la librairie, nous l'avons devellope
         $first= $artist->artists->items;  //récupération de la liste des artiste
         for($i = 0; $i < sizeof($first) ;$i++){//pour chaque artiste de la liste
@@ -17,7 +18,6 @@ function get_id_artist($name) { //cette fonction permet de recherche un artiste 
             $images=$api->getArtist($id);//je récupére l'artiste via son $id en passant pour l'api afin de récupérer son image (la requéte $api->shearch_artiste ne retourne pas d'image)
             $url=$images->images[0]->url;//je récupére l'url de l'image
             echo $nom .' ' ;
-            echo"Recherche dans sqlite";
             if($url){ //juste test si l'artiste à bien une image
             $image = base64_encode(file_get_contents($url));//je récuépére l'image dériére l'url
 
@@ -29,7 +29,10 @@ function get_id_artist($name) { //cette fonction permet de recherche un artiste 
 
 function shearch_artist($name) { //cete fonction recherche la présense d'un artiste dans la base
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-    $db->exec('PRAGMA foreign_keys = ON;'); 
+    $db->exec('PRAGMA foreign_keys = ON;');
+    $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL, nom_artist TEXT, uri TEXT)');
+
+
         $sql = $db->query("SELECT * FROM artist WHERE nom_artist= '$name'"); //recherche de l'artiste
         $result = $sql->fetchArray(SQLITE3_NUM);
 
