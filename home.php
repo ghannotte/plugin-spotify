@@ -8,8 +8,9 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 
 
     echo '<form action="" method="post"><input type="text" name="inputText"/><input type="submit" placeholder="artiste info" name="shearch_artiste"/></form>'; 
+    echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&init_db=null"><p>init_database<p/></a>';
 
-    if(isset($_POST['shearch_artiste'])){ //detecte un input dans la bare de recherche d'artiste
+      if(isset($_POST['shearch_artiste'])){ //detecte un input dans la bare de recherche d'artiste
         $name=$_POST['inputText'];
         shearch_artist($name);
       }
@@ -24,6 +25,8 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         $name=$_GET['nom']; 
         get_id_artist($name);
       }      
-      
+      if(isset($_GET['init_db'])){ //Quand un artiste n'a pas été trouvé dans sqlite, lance la recherche de spotify
+        initdb();
+      }   
 
 ?>
