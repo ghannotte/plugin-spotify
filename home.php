@@ -1,8 +1,11 @@
 <?php
 
 require_once dirname(__FILE__).'/shearch_artist.php';
+require_once dirname(__FILE__).'/shearch_album.php';
+require_once dirname(__FILE__).'/import_album.php';
 require_once dirname(__FILE__).'/import_artist.php';
 require_once dirname(__FILE__).'/artist_page.php';
+require_once dirname(__FILE__).'/album_page.php';
 require_once dirname(__FILE__).'/vendor/autoload.php';
 
 
@@ -11,7 +14,7 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 
       if(isset($_POST['shearch_artiste'])){ //detecte un input dans la bare de recherche d'artiste
         $name=$_POST['artist'];
-        shearch_artist($name);
+        shearch_artist($name,'direct');
       }
 
 
@@ -35,11 +38,21 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         if(($artist)&&($album)){
 
         }elseif((!$artist)&&($album)){
+          shearch_album($album);
 
         }elseif(($artist)&&(!$album)){
-
+          shearch_artist($artist,'indirect');
         }
         
+      }
+
+      if(isset($_GET['import_album'])){ //Une fois que l'utilsateur à choisit son album grace à la fonction fonction shearch_aLBUM(), il l'import
+        import_album();
+
+      }
+
+      if(isset($_GET['display_album'])){ //affiche l'artiste quand display_artist figure dans l'url
+        display_album_page();
       }
 
 ?>

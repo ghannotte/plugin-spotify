@@ -3,7 +3,7 @@
 /*
 Plugin Name: sputiffy
 Plugin URI: https://sputiffy/
-Description: Ceci est mon pr        emier plugin
+Description: Ceci est mon premier plugin
 Author: Guillaume Hannotte Julien Muget
 Version: 1.0
 Author URI: http://sputiffy/
