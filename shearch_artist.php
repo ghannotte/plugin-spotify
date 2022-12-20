@@ -19,8 +19,8 @@ function get_id_artist($name) { //cette fonction permet de recherche un artiste 
             $url=$images->images[0]->url;//je récupére l'url de l'image
             echo $nom .' ' ;
             if($url){ //juste test si l'artiste à bien une image
-            $image = base64_encode(file_get_contents($url));//je récuépére l'image dériére l'url
-            if(isset($_GET['query_artist_other'])){ //Une fois que l'utilsateur à choisit son artiste grace à la fonction fonction shearch_artist(), il l'import
+            $image = base64_encode(file_get_contents($url));//je récuépére l'image dérriére l'url
+            if(isset($_GET['query_artist_other'])){ //je redirige refresh la page pour importer l'artiste. Je detecte si dans l'url il y a 'query_artist_other' afin de rajouter ce champ à la redirection
             echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&nom='. $nom .'&id='. $id .'&url='. $url .'&import_artiste=null&query_artist_other=null"><img width="50" src="data:image/jpeg;base64,'.$image.'"></a>';
               }else{
             echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&nom='. $nom .'&id='. $id .'&url='. $url .'&import_artiste=null"><img width="50" src="data:image/jpeg;base64,'.$image.'"></a>';}
@@ -29,19 +29,18 @@ function get_id_artist($name) { //cette fonction permet de recherche un artiste 
 }
 
 
-function shearch_artist($name,$method) { //cete fonction recherche la présense d'un artiste dans la base
+function shearch_artist($name,$method,$type) { //cete fonction recherche la présense d'un artiste dans la base
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
     $db->exec('PRAGMA foreign_keys = ON;');
     $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL, nom_artist TEXT, uri TEXT)');
 
 
-        $sql = $db->query("SELECT * FROM artist WHERE nom_artist= '$name'"); //recherche de l'artiste
-        $result = $sql->fetchArray(SQLITE3_NUM);///dans ces test la notion de direct signifit que l'utilisateur à cherché directement un artiste
-                                                ///si c'est indrect, c'est que l'utilisateur cherche un album ou une musique avec le nom d'un album
+        $sql = $db->query("SELECT * FROM artist WHERE nom_artist= '$name'"); //recherche de l'artiste dans la table artiste
+        $result = $sql->fetchArray(SQLITE3_NUM);///dans ces test la notion de direct signifit que l'utilisateur à cherché directement un artist
+                                                ///si c'est indrect, c'est que l'utilisateur cherche un album ou une musique avec le nom d'un artiste
             if (($result)&&($method=='direct')) { //si trouvé et direct
                 echo"Recherche dans sqlite";
-                $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$result[1].'&id='.$result[0].'&url='.$result[2].'&display_artist=null' ;
-               // echo '<head><meta http-equiv="refresh" content="0; url='.$url.'></head>';//modifation de la la page pour afficher l'artiste
+                $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$result[1].'&id='.$result[0].'&url='.$result[2].'&display_artist=null' ;//je redirige vers la page d'affichage de l'artiste
                echo '<script type="text/javascript">',
                'window.location.replace("http://localhost'.$url.'");',
                 '</script>'
@@ -49,8 +48,8 @@ function shearch_artist($name,$method) { //cete fonction recherche la présense 
             }
             if ((!$result)&&($method=='direct')) {//si non trouvé et direct
                 
-                $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$name.'&query_artist=null' ;
-            //    echo '<html><head><meta http-equiv="refresh" content="0; url='.$url.'></head></html>';//modifation de la la page pour chercher l'artiste dans spotify
+                
+                $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$name.'&query_artist=null' ; //je remplace ma page pour faire une recherche d'artiste
                 echo '<script type="text/javascript">',
                     'window.location.replace("http://localhost'.$url.'");',
                      '</script>'
@@ -58,15 +57,19 @@ function shearch_artist($name,$method) { //cete fonction recherche la présense 
 
             }
             if ((!$result)&&($method=='indirect')) {//si non trouvé et indirect 
-                $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$name.'&query_artist=null&query_artist_other=null' ;
-                ///echo '<meta http-equiv="refresh" content="0; url='.$url.'>';//modifation de la la page pour chercher l'artiste dans spotify + modification de l'url 
+                $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$name.'&query_artist=null&query_artist_other='. $type .'' ;//je remplace ma page pour faire une recherche d'artiste et je rajoute le 
+                                                                                                                     //&query_artist_other dans l'url pour faire un recherche d'album ou de titre juste aprés
                 echo '<script type="text/javascript">',
                 'window.location.replace("http://localhost'.$url.'");',
                  '</script>'
+                 
 ;
             }    
-            if (($result)&&($method=='indirect')) {//si non trouvé et indirect
-                shearch_album_artist($result[0]); //je redirge vers la recheche d'album par artiste            
+            if (($result)&&($method=='indirect')) {//si trouvé et indirect
+                if($type="album"){
+                    shearch_album_artist($result[0]);
+                }else
+                  shearch_album_musique($result[0]); //je redirge vers la recheche d'album par artiste            
             }             
             
         }  

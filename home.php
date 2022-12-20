@@ -14,7 +14,7 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 
       if(isset($_POST['shearch_artiste'])){ //detecte un input dans la bare de recherche d'artiste
         $name=$_POST['artist'];
-        shearch_artist($name,'direct');
+        shearch_artist($name,'direct','artist');
       }
 
 
@@ -34,14 +34,15 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
       if(isset($_POST['shearch_album'])){ //detecte un input dans la bare de recherche d'artiste
         $artist=$_POST['artist'];
         $album=$_POST['album'];        
-
+        $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db'); 
+        $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT)');
         if(($artist)&&($album)){
 
-        }elseif((!$artist)&&($album)){
+        }elseif((!$artist)&&($album)){ ///fonction de recherche d'album
           shearch_album($album);
-
+          
         }elseif(($artist)&&(!$album)){
-          shearch_artist($artist,'indirect');
+          shearch_artist($artist,'indirect','album'); //si l'utilisateur souhaite rechercher un album seulement avec un nom d'artiste je cherche l'artiste dans la base avant de chercher l'album
         }
         
       }
@@ -55,4 +56,10 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         display_album_page();
       }
 
+      if(isset($_GET['discover_album'])){ //affiche l'artiste quand display_artist figure dans l'url
+        $id=$_GET['id_artist'];
+        shearch_album_artist_on_spotify($id);
+      }
+
+      
 ?>
