@@ -33,11 +33,10 @@ $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
 
 function shearch_album($album){
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db'); 
-    $db->exec('PRAGMA foreign_keys = ON;'); 
-    $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT)');
     $sql = $db->query("SELECT * FROM album WHERE nom_album= '$album'");
     $result = $sql->fetchArray(SQLITE3_NUM);
         if ($result) {
+            
             $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$result[2].'&id='.$result[1].'&url='.$result[3].'&display_album=null&id_artist='.$result[0].'' ;
             echo '<script type="text/javascript">',
             'window.location.replace("http://localhost'.$url.'");',

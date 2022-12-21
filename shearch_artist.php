@@ -66,12 +66,14 @@ function shearch_artist($name,$method,$type) { //cete fonction recherche la pré
 ;
             }    
             if (($result)&&($method=='indirect')) {//si trouvé et indirect
-                if($type="album"){
+                echo $type; 
+                if($type=="album"){
                     shearch_album_artist($result[0]);
-                }else
-                  shearch_album_musique($result[0]); //je redirge vers la recheche d'album par artiste            
-            }             
-            
+                }elseif($type=="track"){ 
+                                    
+                  shearch_track_artist($result[0]); //je redirge vers la recheche d'album par artiste            
+                }             
+            }
         }  
 
 

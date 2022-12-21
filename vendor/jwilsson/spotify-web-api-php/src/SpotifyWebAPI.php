@@ -1312,7 +1312,17 @@ class SpotifyWebAPI
 
         return $this->lastResponse['body'];
     }     
+    public function shearch_track($album, $options = [])
+    {
+        $headers = $this->authHeaders();
 
+        //$trackId = $this->uriToId($trackId, 'track');
+        $uri = '/v1/search/?q=' . $album .'&type=album';
+
+        $this->lastResponse = $this->sendRequest('GET', $uri, $options, $headers);
+
+        return $this->lastResponse['body'];
+    }
     /**
      * Get multiple tracks.
      * https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
