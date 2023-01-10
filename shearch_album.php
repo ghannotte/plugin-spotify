@@ -63,6 +63,32 @@ function shearch_album_artist($id){ ///cette fonction est utilisé quand l'utili
 
 }    
 
+
+function shearch_album_and_artist($artist,$album){ ///cette fonction est utilisé quand l'utilisateur veut chercher un album par artiste
+
+    $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
+    $sql = $db->query("SELECT * FROM artist WHERE nom_artist= '$artist'");
+    $result = $sql->fetchArray(SQLITE3_NUM);
+    if ($result){
+        echo $album;
+        $sql2 = $db->query("SELECT * FROM album WHERE nom_album= '$album'");
+        $result2 = $sql2->fetchArray(SQLITE3_NUM);
+        if ($result2){
+            $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$result2[2].'&id='.$result2[1].'&url='.$result2[3].'&display_album=null&id_artist='.$result2[0].'' ;
+            echo '<script type="text/javascript">',
+            'window.location.replace("http://localhost'.$url.'");',
+             '</script>'
+            ; // si l'artiste est dans la table album, je lance la fonction d'affichage de la liste
+                
+        }else{ 
+            shearch_album_artist_on_spotify($result[0]); // si l'artiste ne l'est pas, je propose à l'utilisateur de le chercher
+        }           
+    }else{ 
+        shearch_artist($artist,'indirect','album'); // si l'artiste ne l'est pas, je propose à l'utilisateur de le chercher
+    }
+
+}
+
 function shearch_album_artist_on_spotify($id){
    
     $token=get_token();
@@ -77,7 +103,8 @@ function shearch_album_artist_on_spotify($id){
         $url=$images->images[0]->url;//je récupére l'url de l'image
         $id_artist=$images->artists[0]->id;//je récupére l'id de l'artiste
         $name_artist=$images->artists[0]->name;//je récupére le nom de l'artiste
-        echo 'nom artist:'. $name_artist . ' ';
+        echo '<p>nom artist :'. $name_artist . ' </p>';
+        echo '<p>nom album :'. $nom . ' </p>';
             if($url){ //je test si l'artiste à bien une image
             $image = base64_encode(file_get_contents($url));//je récuépére l'image dériére l'url
             echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&id_artist='. $id_artist .'&nom='. $nom .'&id='. $id .'&url='. $url .'&import_album=null."><img width="50" src="data:image/jpeg;base64,'.$image.'"></a>';

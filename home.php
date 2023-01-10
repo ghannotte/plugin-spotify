@@ -5,10 +5,10 @@ require_once dirname(__FILE__).'/shearch_album.php';
 require_once dirname(__FILE__).'/shearch_track.php';
 require_once dirname(__FILE__).'/import_album.php';
 require_once dirname(__FILE__).'/import_artist.php';
-//require_once dirname(__FILE__).'/import_track.php';
+require_once dirname(__FILE__).'/import_track.php';
 require_once dirname(__FILE__).'/artist_page.php';
 require_once dirname(__FILE__).'/album_page.php';
-//require_once dirname(__FILE__).'/track_page.php';
+require_once dirname(__FILE__).'/track_page.php';
 require_once dirname(__FILE__).'/vendor/autoload.php';
 
 
@@ -41,7 +41,7 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT)');
         $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT,id_album TEXT ,id_track TEXT, nom_track TEXT)');
         if(($artist)&&($album)){
-          shearch_artist($artist,'indirect','album');
+          shearch_album_and_artist($artist,$album);
         }elseif((!$artist)&&($album)){ ///fonction de recherche d'album
           shearch_album($album);
           
@@ -74,13 +74,33 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT ,id_album  TEXT ,id_track TEXT, nom_track TEXT)');
       }
       if((!$artist)&&($album)&&(!$track)){
+        
         shearch_album($album);
 
       }elseif(($artist)&&(!$album)&&(!$track) && (!isset($_POST['shearch_album']))){
 
         shearch_artist($artist,'indirect','track');
+
       }elseif((!$artist)&&(!$album)&&($track)){
+        shearch_track($track);
+      }
+      elseif((!$artist)&&($album)&&($track)){
         ///shearch_track($artist,'indirect','track');
+      }
+      elseif(($artist)&&(!$album)&&($track)){
+        ///shearch_track($artist,'indirect','track');
+      }
+      elseif(($artist)&&($album)&&(!$track)){
+        
+        shearch_album_and_artist($artist,$album);
+
+      }
+      elseif(($artist)&&($album)&&($track)){
+        ///shearch_track($artist,'indirect','track');
+      }
+      if(isset($_GET['import_track'])){ //Une fois que l'utilsateur à choisit son album grace à la fonction fonction shearch_aLBUM(), il l'import
+        import_track();
+
       }
 
 ?>

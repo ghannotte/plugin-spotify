@@ -18,7 +18,7 @@ echo "<p> Musique de l'Album :</p>";
 while ($row = $sql->fetchArray()) {
    echo '<p>'.$row['nom_track'].'</p>';   
 }
-
+$db.close();
 echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&id_artist='. $id_artist .'&discover_album=null"><p>rechercher dautres album pour cette artiste</p></a>';
 
 }
@@ -37,7 +37,7 @@ while ($row = $sql->fetchArray()) {
     echo '<a href="'.$url.'"><p>detail album </p></a>';
     
 }
-
+$db.close();
 echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&id_artist='. $id .'&discover_album=null"><p>rechercher dautres album pour cette artiste dans spotify </p></a>';
 
 }

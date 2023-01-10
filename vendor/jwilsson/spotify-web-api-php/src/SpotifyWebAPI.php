@@ -1312,12 +1312,12 @@ class SpotifyWebAPI
 
         return $this->lastResponse['body'];
     }     
-    public function shearch_track($album, $options = [])
+    public function shearch_track($track, $options = [])
     {
         $headers = $this->authHeaders();
 
         //$trackId = $this->uriToId($trackId, 'track');
-        $uri = '/v1/search/?q=' . $album .'&type=album';
+        $uri = '/v1/search/?q=' . $track .'&type=track';
 
         $this->lastResponse = $this->sendRequest('GET', $uri, $options, $headers);
 
