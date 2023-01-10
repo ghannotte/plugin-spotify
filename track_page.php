@@ -9,7 +9,7 @@ function display_track_page($track,$id){ /// cette fonction affiche les informat
     echo '<p>nom track: '.$track.'</p>';
     echo '<p>nom artiste: '.$result3[1].'</p>';
     echo '<p>nom album: '.$result2[2].'</p>';
-    $db.close();
+    
 
 }
 

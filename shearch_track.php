@@ -35,7 +35,7 @@ function shearch_album_track_spotify($id){
     $tracks = $api->getAlbumTracks($id);
     //$first= $track->items;  //récupération de la liste des album
     foreach ($tracks->items as $track) {
-        echo '<b>' . $track->name . '</b> <br>';
+        //echo '<b>' . $track->name . '</b> <br>';
         $nom_track=$track->name;
         $id_track=$track->id;
         $re= $db->query("SELECT * FROM album WHERE id_album='$id'");
@@ -98,7 +98,7 @@ function shearch_track_spotify($track){
             $url=$first[$i]->album->images[0]->url;
              if($url){ //je test si l'artiste à bien une image
                  $image = base64_encode(file_get_contents($url));//je récuépére l'image dériére l'url
-                 echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&nom'. $nom_album .'&id_artist='. $id_artist .'&nom_track='. $track .'&id='. $id_album .'&url='. $url .'&import_track=null."><img width="50" src="data:image/jpeg;base64,'.$image.'"></a>';
+                 echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&nom='. $nom_album .'&id_artist='. $id_artist .'&nom_track='. $track .'&id='. $id_album .'&url='. $url .'&import_track=null."><img width="50" src="data:image/jpeg;base64,'.$image.'"></a>';
              }//j'affiche le résultat, l'utilisateur pourra valider l'album dans la selection généré en cliquant sur le lien'
         }
 

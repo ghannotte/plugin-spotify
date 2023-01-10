@@ -8,6 +8,6 @@ $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL
 $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT)');
 $db->exec('CREATE TABLE IF NOT EXISTS track(id_album TEXT ,id_track TEXT, nom_track TEXT)');
 echo 'la database est initialisé';
-$db.close();
+
 }
 ?>
