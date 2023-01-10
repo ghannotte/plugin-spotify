@@ -70,7 +70,7 @@ function shearch_album_and_artist($artist,$album){ ///cette fonction est utilisÃ
     $sql = $db->query("SELECT * FROM artist WHERE nom_artist= '$artist'");
     $result = $sql->fetchArray(SQLITE3_NUM);
     if ($result){
-        echo $album;
+
         $sql2 = $db->query("SELECT * FROM album WHERE nom_album= '$album'");
         $result2 = $sql2->fetchArray(SQLITE3_NUM);
         if ($result2){

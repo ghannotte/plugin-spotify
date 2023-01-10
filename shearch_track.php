@@ -3,6 +3,8 @@ include_once 'vendor/autoload.php';
 include_once 'refreshtoken.php';
 include_once 'artist_page.php';
 include_once 'track_page.php';
+include_once 'track_page.php';
+include_once 'shearch_artist.php';
 
 
 function shearch_track_album($id){
@@ -23,7 +25,26 @@ function shearch_track_album($id){
             shearch_album_track_spotify($id);
         }
 
-    } ///getAlbum
+    } 
+    
+    
+    function find_track_album($nom_album,$nom_track){
+        $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db'); 
+        $sql = $db->query("SELECT * FROM album WHERE nom_album='$nom_album'");
+        $result = $sql->fetchArray(SQLITE3_NUM);
+            if ($result) {
+                $sql2 = $db->query("SELECT * FROM track WHERE nom_track='$nom_track'");
+                $result2 = $sql2->fetchArray(SQLITE3_NUM);
+                    if ($result2) {
+                        display_track_page($nom_track,$result[0]);
+                    }elseif (!$result2) { 
+                        shearch_track_album($nom_album);
+                    }                
+            }
+            elseif (!$result) { 
+                shearch_album($album);
+            }    
+        }    ///getAlbum
 
 
 function shearch_album_track_spotify($id){
@@ -61,7 +82,8 @@ function shearch_track_artist($id_artist){
         }
 
     }elseif(!$result){
-        echo 'ko';
+        echo "titre nom trouver,";
+        shearch_album_artist_on_spotify($result[0]);
     }
 }
 
@@ -101,8 +123,28 @@ function shearch_track_spotify($track){
                  echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&nom='. $nom_album .'&id_artist='. $id_artist .'&nom_track='. $track .'&id='. $id_album .'&url='. $url .'&import_track=null."><img width="50" src="data:image/jpeg;base64,'.$image.'"></a>';
              }//j'affiche le résultat, l'utilisateur pourra valider l'album dans la selection généré en cliquant sur le lien'
         }
+    }
+    
+function shearch_one_track_artist($artist,$track){
+    $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
+    $sql = $db->query("SELECT * FROM artist WHERE nom_artist ='$artist'");
+    $result = $sql->fetchArray(SQLITE3_NUM);
+    if($result){
+        $sql2 = $db->query("SELECT * FROM  track WHERE nom_track ='$track'");
+        $result2 = $sql2->fetchArray(SQLITE3_NUM);
 
-
+            if($result2){
+                display_track_page($track,$result[0]);
+                }elseif(!$result2){
+                    echo "titre nom trouver,";
+                    shearch_album_artist_on_spotify($result[0]);    
+                }
         
+    elseif(!$result){
+        echo "artiste nom trouvé";
+        shearch_artist($artist,'indirect','track');
+        }
+    }
+
 }
 ?>

@@ -776,12 +776,12 @@ class SpotifyWebAPI
      *
      * @return array|object The artist's top tracks. Type is controlled by `SpotifyWebAPI::setReturnType()`.
      */
-    public function getArtistTopTracks($artistId, $options)
+    public function getArtistTopTracks($artistId)
     {
         $headers = $this->authHeaders();
 
         $artistId = $this->uriToId($artistId, 'artist');
-        $uri = '/v1/artists/' . $artistId . '/top-tracks';
+        $uri = '/v1/artists/' . $artistId . '/top-tracks?market=FR';
 
         $this->lastResponse = $this->sendRequest('GET', $uri, $options, $headers);
 
