@@ -30,6 +30,11 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
     <input type="text"  placeholder="nom album" name="album_t"/><input type="text"  placeholder="nom musique" name="track"/>
     <input type="submit" placeholder="artiste info" name="shearch_track"/></form>'; 
      
+
+    $artist=0;
+    $album=0;
+    $track=0;
+
 ///............................... Partie recherche Artiste..........................................................
 
     if(isset($_POST['shearch_artiste'])){ //detecte un input dans la bare de recherche d'artiste
