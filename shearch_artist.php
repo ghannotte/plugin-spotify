@@ -32,7 +32,7 @@ function get_id_artist($name) { //cette fonction permet de recherche un artiste 
 function shearch_artist($name,$method,$type) { //cete fonction recherche la présense d'un artiste dans la base
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
     $db->exec('PRAGMA foreign_keys = ON;');
-    $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL, nom_artist TEXT, uri TEXT)');
+    $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL, nom_artist TEXT, uri TEXT,fraicheur DATE)');
 
 
         $sql = $db->query("SELECT * FROM artist WHERE nom_artist= '$name'"); //recherche de l'artiste dans la table artiste
@@ -80,7 +80,7 @@ function shearch_artist($name,$method,$type) { //cete fonction recherche la pré
         function shearch_artist_back($id) { //cette fonction recherche la présense d'un artiste dans la base puis l'insert directement sin non trouvé
                                             // cette fonction est éxécuté seulement lorsque l'utilisateur à selectionné un album ou un track et non directement un artiste
             $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-            $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL, nom_artist TEXT, uri TEXT)'); //Si jamais l'utilisateur selectionne directement un album ou un track à sa 1e utilisation,    
+            $db->exec('CREATE TABLE IF NOT EXISTS artist(id_artist TEXT PRIMARY KEY NOT NULL, nom_artist TEXT, uri TEXT, fraicheur DATE)'); //Si jamais l'utilisateur selectionne directement un album ou un track à sa 1e utilisation,    
                                                                                                                             // il va directement vouloir insérer dans la table artiste par la suite, donc je créer la table s'il elle n'existe pas    
         
                 $sql = $db->query("SELECT * FROM artist WHERE id_artist= '$id'"); //recherche de l'artiste
@@ -96,7 +96,8 @@ function shearch_artist($name,$method,$type) { //cete fonction recherche la pré
                     if (!$url){ //il ce peut que l'artiste n'est pas d'image, dans ce cas ma vaiable url est "null"
                         $url='NULL';
                     }
-                    $db->exec("INSERT INTO  artist VALUES('$id', '$nom','$url')");
+                    $date = date('d-m-y');
+                    $db->exec("INSERT INTO  artist VALUES('$id', '$nom','$url','$date')");
                     return $id;
                     }
                 return $result[0]; 

@@ -7,8 +7,8 @@ $url= $_GET['url'];
 
 
 $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-
-$db->exec("INSERT INTO  artist VALUES('$id', '$nom','$url')");//envoie des données dans la base artiste de sqlite
+$date = date('d-m-y');
+$db->exec("INSERT INTO  artist VALUES('$id', '$nom','$url','$date')");//envoie des données dans la base artiste de sqlite
 if(!isset($_GET['query_artist_other'])){///si dans l'url il n'y a pas query_artist_other je redirige vers la page de l'artiste
 $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$nom.'&id='.$id.'&url='.$url.'&display_artist=null' ;
 
