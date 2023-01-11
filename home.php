@@ -56,8 +56,8 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         $artist=$_POST['artist'];
         $album=$_POST['album'];        
         $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db'); // Je vérifie que les tables ce sont bien crée
-        $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT)');
-        $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT,id_album TEXT ,id_track TEXT, nom_track TEXT)');
+        $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT,fraicheur DATE)');
+        $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT ,id_album  TEXT ,id_track TEXT, nom_track TEXT, uri TEXT,fraicheur DATE)');
         if(($artist)&&($album)){ 
           shearch_album_and_artist($artist,$album);///Cette fonction va rechercher un album pour un artiste spécifique
         }elseif((!$artist)&&($album)){
@@ -89,8 +89,8 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         $album=$_POST['album_t'];  
         $track=$_POST['track'];  
         $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-        $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT)');
-        $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT ,id_album  TEXT ,id_track TEXT, nom_track TEXT)');
+        $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT,fraicheur DATE)');
+        $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT ,id_album  TEXT ,id_track TEXT, nom_track TEXT, uri TEXT,fraicheur DATE)');
       }
       if((!$artist)&&($album)&&(!$track)){
         

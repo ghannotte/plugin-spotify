@@ -9,8 +9,8 @@ $id_artist= $_GET['id_artist'];
 $url=$_GET['url'];
 
 $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-
-$db->exec("INSERT INTO  album VALUES('$id_artist','$id_album', '$nom_album','$url')");
+$date = date('d-m-y');
+$db->exec("INSERT INTO  album VALUES('$id_artist','$id_album', '$nom_album','$url','$date')");
 
 shearch_artist_back($id_artist); ///j'en profite pour insérer l'atiste s'il ne l'a pas déja été
 shearch_track_album($id); ///j'en profite pour insérer les titres de l'album

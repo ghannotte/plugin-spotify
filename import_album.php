@@ -9,8 +9,8 @@ $id_artist= $_GET['id_artist'];
 
 
 $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
-
-$db->exec("INSERT INTO  album VALUES('$id_artist','$id', '$nom','$url')");//envoie des données dans la base artiste de sqlite
+$date = date('d-m-y');
+$db->exec("INSERT INTO  album VALUES('$id_artist','$id', '$nom','$url','$date')");//envoie des données dans la base artiste de sqlite
 
 $url=$_SERVER['PHP_SELF'].'?page=my-plugin&id_artist='.$id_artist.'&nom='.$nom.'&id='.$id.'&url='.$url.'&display_album=null' ;
 //echo '<meta http-equiv="Refresh" content="0; url='.$url.'>';//redirection vers la page de l'artiste
