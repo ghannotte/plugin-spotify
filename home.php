@@ -96,6 +96,7 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
         $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
         $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT ,id_album TEXT PRIMARY KEY , nom_album TEXT, uri TEXT,fraicheur DATE)');
         $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT ,id_album  TEXT ,id_track TEXT, nom_track TEXT, uri TEXT,fraicheur DATE)');
+
       }
       if((!$artist)&&($album)&&(!$track)){
         
@@ -110,7 +111,8 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
       }
       elseif((!$artist)&&($album)&&($track)){
 
-        shearch_track($artist,$track);
+
+        find_track_album($album,$track);
 
       }
       elseif(($artist)&&(!$album)&&($track)){

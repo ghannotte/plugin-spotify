@@ -42,7 +42,7 @@ function shearch_track_album($id){
                     }                
             }
             elseif (!$result) { 
-                shearch_album($album);
+                shearch_album($nom_album);
             }    
         }    ///getAlbum
 
