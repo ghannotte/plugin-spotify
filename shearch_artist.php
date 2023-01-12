@@ -102,6 +102,7 @@ function shearch_artist($name,$method,$type) { //cete fonction recherche la pré
                     }
                 return $result[0]; 
                 }  
-        
+
+
 
 ?>

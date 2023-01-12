@@ -10,6 +10,9 @@ require_once dirname(__FILE__).'/artist_page.php';
 require_once dirname(__FILE__).'/album_page.php';
 require_once dirname(__FILE__).'/track_page.php';
 require_once dirname(__FILE__).'/vendor/autoload.php';
+require_once dirname(__FILE__).'/check_fraicheur.php';
+
+check_fraicheur_table ();
 
 //........................................Formulaires..............................................................
 //Formulaire de recherche d'artiste
@@ -121,3 +124,15 @@ if (isset($_GET['display_tracks'])) {
   $id_artist = $_GET['id_artist'];
   display_track_page($nom_track,$id_artist);
 }
+
+if (isset($_GET['maj_artist'])) {
+
+  echo "maj_artist";
+}
+
+if (isset($_GET['mise_a_jour'])) {
+
+  echo "maj_artist";
+}
+
+
