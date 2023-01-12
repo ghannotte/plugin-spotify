@@ -12,6 +12,7 @@ require_once dirname(__FILE__) . '/track_page.php';
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 require_once dirname(__FILE__) . '/page.css';
 
+check_fraicheur_table ();
 //........................................Formulaires..............................................................
 //Formulaire de recherche d'artiste
 echo '
