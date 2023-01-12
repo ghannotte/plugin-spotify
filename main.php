@@ -14,8 +14,8 @@ add_action('admin_menu', 'register_admin_page');
 function register_admin_page()
 { 
 
-  add_menu_page('Theme page title', 'Spotify', 'read', 'theme-options', 'user_markup');
-  add_submenu_page( 'theme-options', 'Settings page title', 'Admin', 'activate_plugins', 'activate_plugins', 'admin_markup');
+  add_menu_page('Theme page title', 'Spotify', 'read', 'my-plugin', 'user_markup');
+  add_submenu_page( 'my-plugin', 'Settings page title', 'Admin', 'activate_plugins', 'admin_page', 'admin_markup');
  
 
 }
