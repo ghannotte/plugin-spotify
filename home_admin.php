@@ -21,7 +21,7 @@ echo '<form action="' . $_SERVER['PHP_SELF'].'?page=admin_page" method="post">
 <input type="submit" class="button" name="purge" value="purge_database" /></form>';
 
 echo '<p></p>';
-echo '<form action="' . $_SERVER['PHP_SELF'].'?page=my-plugin" method="post">
+echo '<form action="' . $_SERVER['PHP_SELF'].'?page=admin_page" method="post">
 <input type="submit" class="button" name="verif" value="Verification de la fraicheur des données" /></form>';
 
 if (isset($_POST['verif'])) {
