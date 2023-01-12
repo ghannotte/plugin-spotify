@@ -1,6 +1,10 @@
 <?php
 require_once dirname(__FILE__) . '/check_fraicheur.php';
 
+$artist = 0;
+$album = 0;
+$track = 0;
+
 echo '<label for="name">Supression artiste: </label><form action="' . $_SERVER['PHP_SELF'].
 '?page=admin_page" method="post"><input type="text"  placeholder="nom artiste" name="artist"/>
 <input type="submit" placeholder="artiste info" name="delete_artist"/></form>'; 
