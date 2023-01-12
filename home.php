@@ -11,8 +11,9 @@ require_once dirname(__FILE__) . '/album_page.php';
 require_once dirname(__FILE__) . '/track_page.php';
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 require_once dirname(__FILE__) . '/page.css';
+require_once dirname(__FILE__) . '/check_fraicheur.php';
 
-check_fraicheur_table ();
+
 //........................................Formulaires..............................................................
 //Formulaire de recherche d'artiste
 echo '
@@ -46,6 +47,17 @@ echo '<label for="name">Selection track: </label><form action="' . $_SERVER['PHP
 $artist = 0;
 $album = 0;
 $track = 0;
+echo '<p></p>';
+echo '<form action="' . $_SERVER['PHP_SELF'].'?page=my-plugin" method="post">
+<input type="submit" class="button" name="verif" value="Verification de la fraicheur des données" /></form>';
+
+if (isset($_POST['verif'])) {
+  check_fraicheur_table ();
+}
+
+if (isset($_GET['maj_db'])) {
+  udpdate_table();
+}
 
 //............................... Partie recherche Artiste..........................................................
 //Detecte un input dans la barre de recherche d'artiste
