@@ -12,7 +12,7 @@ echo '<label for="name">Supression musique: </label><form action="' . $_SERVER['
 '?page=admin_page" method="post"><input type="text"  placeholder="nom musique" name="track"/>
 <input type="submit" placeholder="artiste info" name="delete_track"/></form>'; 
 echo '<p></p>';
-echo '<input type="submit" class="button" name="purge" value="purge_database" />';
+echo '<form action="' . $_SERVER['PHP_SELF'].'?page=admin_page" method="post"><input type="submit" class="button" name="purge" value="purge_database" /></form>';
 
 if (isset($_POST['delete_artist'])) {
   $artist = $_POST['artist'];
