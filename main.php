@@ -9,24 +9,20 @@ Version: 1.3
 Author URI: http://spofify/
 */
 
-//Section Admin
+//Section Admin/user
 add_action('admin_menu', 'register_admin_page');
 function register_admin_page()
 { 
-    add_menu_page('Spotify', 'Admin', 'activate_plugins', 'my-plugin', 'admin_markup', 'some-dashicon');
-    add_menu_page('Spotify', 'Spotify', 'read', 'my-plugin', 'user_markup', 'some-dashicon');
+
+  add_menu_page('Theme page title', 'Spotify', 'read', 'theme-options', 'user_markup');
+  add_submenu_page( 'theme-options', 'Settings page title', 'Admin', 'activate_plugins', 'activate_plugins', 'admin_markup');
+ 
+
 }
 
 function admin_markup()
 {
     require_once dirname(__FILE__).'/home_admin.php'; 
-}
-
-//Section User
-add_action('user_menu', 'register_user_page');
-function register_user_page()
-{ 
-    add_menu_page('Spotify', 'Spotify', 'edit_posts', 'my-plugin', 'user_markup', 'some-dashicon');
 }
 
 function user_markup()
