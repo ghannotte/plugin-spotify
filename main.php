@@ -14,7 +14,7 @@ add_action('admin_menu', 'register_admin_page');
 function register_admin_page()
 { 
     add_menu_page('Spotify', 'Admin', 'activate_plugins', 'my-plugin', 'admin_markup', 'some-dashicon');
-    add_menu_page('Spotify', 'Spotify', 'read', 'my-plugin', 'user_markup', 'some-dashicon');
+    //add_menu_page('Spotify', 'Spotify', 'read', 'my-plugin', 'user_markup', 'some-dashicon');
 }
 
 function admin_markup()

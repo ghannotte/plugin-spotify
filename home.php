@@ -7,21 +7,34 @@ require_once dirname(__FILE__).'/import_album.php';
 require_once dirname(__FILE__).'/import_artist.php';
 require_once dirname(__FILE__).'/import_track.php';
 require_once dirname(__FILE__).'/artist_page.php';
-require_once dirname(__FILE__).'/album_page.php';
-require_once dirname(__FILE__).'/track_page.php';
-require_once dirname(__FILE__).'/vendor/autoload.php';
+require_once dirname(__FILE__) . '/album_page.php';
+require_once dirname(__FILE__) . '/track_page.php';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
+require_once dirname(__FILE__) . '/page.css';
 
 //........................................Formulaires..............................................................
 //Formulaire de recherche d'artiste
-echo '<label for="name">Selection artiste: </label><form action="' . $_SERVER['PHP_SELF'].
-'?page=my-plugin" method="post"><input type="text"  placeholder="nom artiste" name="artist"/>
-<input type="submit" placeholder="artiste info" name="shearch_artiste"/></form>'; 
+echo '
+<label for="name">
+  Selection artiste: 
+</label>
+<form action="' . $_SERVER['PHP_SELF'] . '?page=my-plugin" method="post">
+  <input type="text"  placeholder="nom artiste" name="artist"/>
+  <input type="submit" placeholder="artiste info" name="shearch_artiste"/>
+</form>
+'; 
 
 //Formulaire de recherche d'album
-echo '<label for="name">Selection album: </label><form action="' . $_SERVER['PHP_SELF'].
-'?page=my-plugin" method="post"><input type="text"  placeholder="nom artiste" name="artist"/>
-<input type="text"  placeholder="nom album" name="album"/>
-<input type="submit" placeholder="artiste info" name="shearch_album"/></form>'; 
+echo '
+<label for="name">
+  Selection album: 
+</label>
+<form action="' . $_SERVER['PHP_SELF'] . '?page=my-plugin" method="post">
+  <input type="text"  placeholder="nom artiste" name="artist"/>
+  <input type="text"  placeholder="nom album" name="album"/>
+  <input type="submit" placeholder="artiste info" name="shearch_album"/>
+</form>
+'; 
 
 //Formulaire de recherche de musique 
 echo '<label for="name">Selection track: </label><form action="' . $_SERVER['PHP_SELF'].
@@ -92,25 +105,56 @@ if (isset($_POST['shearch_track'])) { //Detecte un input dans la barre de recher
   $db->exec('CREATE TABLE IF NOT EXISTS album(id_artist TEXT, id_album TEXT PRIMARY KEY, nom_album TEXT, uri TEXT, fraicheur DATE)');
   $db->exec('CREATE TABLE IF NOT EXISTS track(id_artist TEXT, id_album  TEXT, id_track TEXT, nom_track TEXT, uri TEXT, fraicheur DATE)');
 }
+/*
+if ($artist) {
+  if ($album) {
+    if ($track) {
+      shearch_track($artist, $track);
+    } else {
+      shearch_album_and_artist($artist, $album);
+    }
+  } else {
+    if ($track) {
+      shearch_one_track_artist($artist, $track);
+    } elseif (!isset($_POST['shearch_album'])) {
+      shearch_artist($artist, 'indirect', 'track');
+    }
+  }
+} else {
+  if ($album) {
+    if ($track) {
+      find_track_album($album, $track);
+    } else {
+      shearch_album($album);    
+    }
+  } else {
+    if ($track) {
+      shearch_track($track);    
+    } 
+  }
+}*/
+
+//A suppr
 if ((!$artist) && ($album) && (!$track)) {
   shearch_album($album);
-}elseif (($artist) && (!$album) && (!$track)  &&  (!isset($_POST['shearch_album']))) {
+} elseif (($artist) && (!$album) && (!$track)  &&  (!isset($_POST['shearch_album']))) {//OK
   shearch_artist($artist,'indirect','track');
-} elseif ((!$artist) && (!$album) && ($track)) {
+} elseif ((!$artist) && (!$album) && ($track)) { //OK
   shearch_track($track);
 }
-elseif ((!$artist) && ($album) && ($track)) {
+elseif ((!$artist) && ($album) && ($track)) { //OK
   find_track_album($album,$track);
 }
-elseif (($artist) && (!$album) && ($track)) {
+elseif (($artist) && (!$album) && ($track)) {//OK
   shearch_one_track_artist($artist,$track);
 }
-elseif (($artist) && ($album) && (!$track)) {
+elseif (($artist) && ($album) && (!$track)) { //OK
   shearch_album_and_artist($artist,$album);
 }
 elseif (($artist) && ($album) && ($track)) {
-  shearch_track($artist,$track);
+  shearch_track($artist,$track); //OK
 }
+
 //Une fois que l'utilisateur a choisi son son grâce à la fonction fonction shearch_track(), nous l'importons
 if (isset($_GET['import_track'])) {
   import_track();

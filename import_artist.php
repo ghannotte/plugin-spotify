@@ -6,7 +6,7 @@ require_once 'import_album.php';
 function import_artist()
 {
     //Récupération des données de l'url
-    $ = $_GET['id'];
+    $id = $_GET['id'];
     $nom = $_GET['nom'];
     $url = $_GET['url'];
 
