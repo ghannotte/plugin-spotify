@@ -152,7 +152,7 @@ elseif (($artist) && ($album) && (!$track)) { //OK
   shearch_album_and_artist($artist,$album);
 }
 elseif (($artist) && ($album) && ($track)) {
-  shearch_track($artist,$track); //OK
+  find_track_album($album,$track);
 }
 
 //Une fois que l'utilisateur a choisi son son grâce à la fonction fonction shearch_track(), nous l'importons
