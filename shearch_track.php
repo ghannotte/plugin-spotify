@@ -118,6 +118,8 @@ function shearch_track($track){
              echo '<p>nom artiste :' . $first[$i]->album->artists[0]->name . '</p>';
              $id_artist=$first[$i]->album->artists[0]->id;
              $id_album=$first[$i]->album->id;
+             $track=$first[$i]->name;
+             $nom_album=$first[$i]->album->name;
              $url=$first[$i]->album->images[0]->url;
               if($url){ //je test si l'artiste à bien une image
                   $image = base64_encode(file_get_contents($url));//je récuépére l'image dériére l'url

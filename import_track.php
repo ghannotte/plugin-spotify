@@ -18,6 +18,6 @@ function import_track()
     $db->exec("INSERT INTO album VALUES('$id_artist', '$id_album', '$nom_album', '$url', '$date')");
 
     shearch_artist_back($id_artist); //On insère l'artiste si il n'est pas présent dans la BDD
-    shearch_track_album($id);        //On insère les titres de l'album si il ne sont pas présents dans la BDD
+    shearch_track_album($id_album);        //On insère les titres de l'album si il ne sont pas présents dans la BDD
     display_track_page($nom_track, $id_artist);
 }
