@@ -18,7 +18,7 @@ echo '<label for="name">Supression musique: </label><form action="' . $_SERVER['
 <input type="submit" placeholder="artiste info" name="delete_track"/></form>'; 
 echo '<p></p>';
 echo '<form action="' . $_SERVER['PHP_SELF'].'?page=admin_page" method="post">
-<input type="submit" class="button" name="purge" value="purge_database" /></form>';
+<input type="submit" class="button" name="purge" value="Purger la BDD" /></form>';
 
 echo '<p></p>';
 echo '<form action="' . $_SERVER['PHP_SELF'].'?page=admin_page" method="post">
@@ -36,21 +36,21 @@ if (isset($_POST['delete_artist'])) {
   $artist = $_POST['artist'];
   $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
   $db->exec("DELETE FROM artist WHERE nom_artist='$artist'");
-  echo 'artiste '.$artist .' delete de la table artist';
+  echo 'L\'artiste '.$artist .' a bien été supprimé de la table artist.';
 }
 
 if (isset($_POST['delete_album'])) {
   $album = $_POST['album'];
   $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
   $db->exec("DELETE FROM album WHERE nom_album= '$album'");
-  echo 'album '.$album .' delete de la table album';
+  echo 'L\'album '.$album .' a bien été supprimé de la table album.';
 }
 
 if (isset($_POST['delete_track'])) {
   $track = $_POST['track'];
   $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
   $db->exec("DELETE FROM track WHERE nom_track= '$track'");
-  echo 'Musique '.$track .' delete de la table track';
+  echo 'La musique '.$track .' a bien été supprimée de la table track.';
 }
 
 if (isset($_POST['purge'])) {
@@ -58,7 +58,7 @@ if (isset($_POST['purge'])) {
   $db->exec("DROP TABLE artist");
   $db->exec("DROP TABLE album");
   $db->exec("DROP TABLE track");
-  echo 'la base a été purgé';
+  echo 'Votre base de données a été purgée !';
 
 }
 

@@ -51,7 +51,7 @@ function check_fraicheur_table (){
             }
         }
 
-function udpdate_table(){
+function udpdateTable(){
     echo 'mise à jour de la base efectue';
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
     $sql = $db->query("SELECT * FROM cache ");
@@ -64,7 +64,7 @@ function udpdate_table(){
     $db->exec('DROP TABLE cache');
 }
     function search($id,$type){
-        $token=get_token();
+        $token=getToken();
         $api = new SpotifyWebAPI\SpotifyWebAPI();
         $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
         $api->setAccessToken($token); 

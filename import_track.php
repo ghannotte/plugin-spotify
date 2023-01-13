@@ -1,10 +1,10 @@
 <?php
 
 require_once 'import_album.php';
-include_once 'shearch_artist.php';
+include_once 'search_artist.php';
 
 //Envoi de la saisie utlisateur du son dans sqlite
-function import_track()
+function importTrack()
 {
     //Récupération des données de l'url
     $id_album = $_GET['id'];        
@@ -17,7 +17,7 @@ function import_track()
     $date = date('d-m-y');
     $db->exec("INSERT INTO album VALUES('$id_artist', '$id_album', '$nom_album', '$url', '$date')");
 
-    shearch_artist_back($id_artist); //On insère l'artiste si il n'est pas présent dans la BDD
-    shearch_track_album($id);        //On insère les titres de l'album si il ne sont pas présents dans la BDD
-    display_track_page($nom_track, $id_artist);
+    searchArtistBack($id_artist); //On insère l'artiste si il n'est pas présent dans la BDD
+    searchTrackAlbum($id_album);        //On insère les titres de l'album si ils ne sont pas présents dans la BDD
+    displayTrackPage($nom_track, $id_artist);
 }

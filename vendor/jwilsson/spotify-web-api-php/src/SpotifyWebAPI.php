@@ -1289,7 +1289,7 @@ class SpotifyWebAPI
     }
 
 
-    public function shearch_artiste($artiste, $options = [])
+    public function searchArtist($artiste, $options = [])
     {
         $headers = $this->authHeaders();
 
@@ -1301,7 +1301,7 @@ class SpotifyWebAPI
         return $this->lastResponse['body'];
     }    
 
-    public function shearch_album($album, $options = [])
+    public function searchAlbum($album, $options = [])
     {
         $headers = $this->authHeaders();
 
@@ -1312,7 +1312,7 @@ class SpotifyWebAPI
 
         return $this->lastResponse['body'];
     }     
-    public function shearch_track($track, $options = [])
+    public function searchTrack($track, $options = [])
     {
         $headers = $this->authHeaders();
 

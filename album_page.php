@@ -1,6 +1,6 @@
 <?php
 
-function display_album_page(){ /// cette fonction affiche les informations d'un album précis 
+function displayAlbumPage(){ /// cette fonction affiche les informations d'un album précis 
 $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
 $id= $_GET['id'];//récupération des données de l'url
 $nom= $_GET['nom'];
@@ -22,7 +22,7 @@ echo '<a href="'.$_SERVER['PHP_SELF'] .'?page=my-plugin&id_artist='. $id_artist 
 
 }
 
-function display_album_all_page($id){/// cette fonction affiche les album enregistré pour un artiste
+function displayAlbumAllPage($id){/// cette fonction affiche les album enregistré pour un artiste
 $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
 $sql=$db->query("SELECT * FROM album WHERE id_artist= '$id'");
 $re=$db->query("SELECT * FROM artist WHERE id_artist= '$id'");

@@ -3,7 +3,7 @@
 require_once 'import_album.php';
 
 //Envoi de la saisie utlisateur de l'artiste dans sqlite
-function import_artist()
+function importArtist()
 {
     //Récupération des données de l'url
     $id = $_GET['id'];
@@ -13,11 +13,11 @@ function import_artist()
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
     $date = date('d-m-y');
     $db->exec("INSERT INTO  artist VALUES('$id', '$nom', '$url', '$date')");//Envoi des données dans la table "artist" de sqlite
-    if (!isset($_GET['query_artist_other'])) {//Si dans l'url n'est pas présent "query_artist_other", nous redirigeons vers la page de l'artiste
+    if (!isset($_GET['query_artist_other'])) {//Si dans l'url n'est pas présent "query_artist_other", redirection vers la page de l'artiste
         $url=$_SERVER['PHP_SELF'].'?page=my-plugin&nom=' . $nom . '&id=' . $id . '&url=' . $url . '&display_artist=null' ;
         echo '<script type="text/javascript">','window.location.replace("http://localhost' . $url . '");','</script>';
-    } elseif (isset($_GET['query_artist_other'])) {//Si dans l'url est présent "query_artist_other", nous redirigeons vers la selection d'album ou de musique 
-        shearch_album_artist($id);
+    } elseif (isset($_GET['query_artist_other'])) {//Si dans l'url est présent "query_artist_other", redirection vers la selection d'album ou de musique 
+        searchAlbumArtist($id);
     }
 }
 

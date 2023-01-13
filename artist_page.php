@@ -1,7 +1,7 @@
 <?php
 
 //Cette fonction affiche les informations de l'artiste selon les informations de l'url
-function display_artist_page()
+function displayArtistPage()
 {
     //Récupération des données de l'url
     $id = $_GET['id'];

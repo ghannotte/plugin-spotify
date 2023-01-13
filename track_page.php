@@ -1,7 +1,7 @@
 <?php
 
-//Cette fonction affiche les informations de des musiques selon les informatons de l'url
-function display_track_page($track, $id)
+//Cette fonction affiche les informations des musiques selon les informations de l'url
+function displayTrackPage($track, $id)
 {
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
 
