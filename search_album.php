@@ -73,16 +73,19 @@ function searchAlbumAndArtist($artist, $album)
     $db = new SQLite3('../wp-content/plugins/spotify/spotify_db.db');
     $sql = $db->query("SELECT * FROM artist WHERE nom_artist='$artist'");
     $result = $sql->fetchArray(SQLITE3_NUM);
+ 
     if ($result) {
         $sql2 = $db->query("SELECT * FROM album WHERE nom_album='$album'");
         $result2 = $sql2->fetchArray(SQLITE3_NUM);
         if ($result2) {
+            echo 'ko';
             $url = $_SERVER['PHP_SELF'].'?page=my-plugin&nom='.$result2[2].'&id='.$result2[1].'&url='.$result2[3].'&display_album=null&id_artist='.$result2[0];
             echo '
             <script type="text/javascript">',
                 'window.location.replace("http://localhost'.$url.'");',
             '</script>';
         } else {
+            
             searchAlbumArtistOnSpotify($result[0]); //Si l'artiste est dans la table album, lancement de la fonction d'affichage de la liste
         }
     } else {
@@ -92,7 +95,7 @@ function searchAlbumAndArtist($artist, $album)
 
 function searchAlbumArtistOnSpotify($id)
 {
-    $token = get_token();
+    $token = getToken();
     $api = new SpotifyWebAPI\SpotifyWebAPI();
     $api->setAccessToken($token);
     $album = $api->getArtistAlbums($id); //Recherche des albums d'un artiste via l'API.

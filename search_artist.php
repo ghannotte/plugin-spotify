@@ -59,6 +59,7 @@ function searchArtist($name, $method, $type)
             '</script>';
     }
     if ((!$result) && ($method == 'indirect')) { //Si on ne trouve pas et indirect
+        echo 'ok';
         $url = $_SERVER['PHP_SELF'] . '?page=my-plugin&nom=' . $name . '&query_artist=null&query_artist_other=' . $type . '';
         //Remplacement de la page pour faire une recherche d'artiste et ajouter 
         //&query_artist_other dans l'url pour faire un recherche d'album ou de titre
@@ -67,7 +68,6 @@ function searchArtist($name, $method, $type)
             '</script>';
     }
     if (($result) && ($method == 'indirect')) { //Si on trouve et indirect
-        echo $type;
         if ($type == "album") {
             searchAlbumArtist($result[0]);
         } elseif ($type == "track") {

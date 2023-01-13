@@ -7,7 +7,7 @@ function check_fraicheur($id,$date2,$type)
     $date1=date('d-m-y');
     $diff = strtotime($date1) - strtotime($date2);
     $delta=round($diff / 86400);
-    if ($delta>1){
+    if ($delta<1){
         $db->exec("INSERT INTO cache VALUES('$id','$type')");
     }
     

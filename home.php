@@ -69,7 +69,7 @@ if (isset($_POST['searchArtist'])) {
   searchArtist($name,'direct','artist');
 }
 //Une fois que l'utilisateur a choisi son artiste grâce à la fonction shearch_artist(), nous l'importons
-if (isset($_GET['import_artiste'])) {
+if (isset($_GET['import_artist'])) {
   importArtist();
 }
 //Affiche l'artiste quand display_artist figure dans l'url
